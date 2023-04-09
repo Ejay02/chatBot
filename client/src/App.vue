@@ -35,45 +35,18 @@ async function getResponse(msg) {
 </script>
 
 <template>
-  <div class="flex flex-col h-screen bg-gray-100 rounded-md">
+  <div class="flex flex-col h-screen bg-gray-400 rounded-md">
     <!-- Chat messages container -->
-    <div class="flex-grow px-4 pt-6 pb-2 overflow-y-auto">
-      <div class="flex flex-col space-y-4">
+    <div class="flex-grow px-4 pt-6 pb-2" style="height: 80vh; overflow-y: auto;">
+      <div class="flex flex-col space-y-4" v-for="msg in msgs" :key="msg.id">
         <!-- BOT message -->
-        <div class="flex justify-start items-start">
-          <div class="flex-shrink-0 mr-4">
-            <img
-              class="w-10 h-10 rounded-full"
-              src="https://plus.unsplash.com/premium_photo-1677094310956-7f88ae5f5c6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-              alt="Avatar"
-            />
-            <span class="text-black font-semibold text-xs">BOT</span>
-          </div>
-
-          <div
-            class="bg-white p-4 rounded-lg max-w-xs"
-            v-for="msg in msgs"
-            :key="msg.id"
-          >
-            <div class="" v-if="msg.id % 2 == 0">
-              <p class="text-gray-800 font-medium">{{ msg.msg }}</p>
-            </div>
-
-           
-          </div>
-        </div>
-
-        <!-- <div v-else>
+        <div class="flex justify-end items-start p-2" v-if="msg.id % 2 == 0">
+          <div class="ml-4">
+            <div class="bg-violet-500 text-white p-4 rounded-lg max-w-xs">
               <p class="text-gray-600">{{ msg.msg }}</p>
-            </div> -->
-        <!-- USER message -->
-        <div class="flex justify-end items-start">
-          
-          <!-- <div class="bg-violet-500 text-white p-4 rounded-lg max-w-xs">
-            <p class="font-medium">I need some help with my account</p>
-            <p class="text-gray-100">Can you assist me?</p>
-          </div> -->
-          <div class="flex-shrink-0 ml-4">
+            </div>
+          </div>
+          <div class="flex-shrink-0 p-2">
             <img
               class="w-10 h-10 rounded-full"
               src="https://via.placeholder.com/50"
@@ -81,8 +54,31 @@ async function getResponse(msg) {
             />
           </div>
         </div>
+
+        <!-- end -->
+
+        <!-- USER message -->
+        <div class="flex justify-start items-start" v-else>
+          <div class="flex-shrink-0">
+            <img
+              class="w-10 h-10 rounded-full"
+              src="https://plus.unsplash.com/premium_photo-1677094310956-7f88ae5f5c6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+              alt="Avatar"
+            />
+            <span class="text-black font-semibold text-xs">BOT</span>
+          </div>
+          <div class="ml-4">
+            <div class="bg-white p-4 rounded-lg max-w-xs">
+              <div class="">
+                <p class="text-gray-800 font-medium">{{ msg.msg }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end -->
       </div>
     </div>
+
     <!-- Chat input container -->
     <div
       class="flex-shrink-0 px-4 py-2 bg-white border-t border-gray-200 rounded-md"
