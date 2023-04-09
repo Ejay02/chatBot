@@ -37,12 +37,15 @@ async function getResponse(msg) {
 <template>
   <div class="flex flex-col h-screen bg-gray-400 rounded-md">
     <!-- Chat messages container -->
-    <div class="flex-grow px-4 pt-6 pb-2" style="height: 80vh; overflow-y: auto;">
+    <div
+      class="flex-grow px-4 pt-6 pb-2"
+      style="height: 80vh; overflow-y: auto"
+    >
       <div class="flex flex-col space-y-4" v-for="msg in msgs" :key="msg.id">
         <!-- BOT message -->
-        <div class="flex justify-end items-start p-2" v-if="msg.id % 2 == 0">
+        <div class="flex justify-end items-start p-1 m-2" v-if="msg.id % 2 == 0">
           <div class="ml-4">
-            <div class="bg-violet-500 text-white p-4 rounded-lg max-w-xs">
+            <div class="bg-gray-500 text-white p-4 rounded-lg max-w-xs">
               <p class="text-gray-600">{{ msg.msg }}</p>
             </div>
           </div>
@@ -88,14 +91,14 @@ async function getResponse(msg) {
           <input
             v-model="msgContent"
             id="createMsg"
-            class="flex-grow px-4 py-2 mr-2 text-gray-700 bg-gray-100 rounded-full focus:outline-none"
+            class="flex-grow px-4 py-2 mr-2 text-gray-700 bg-gray-100 rounded-md focus:outline-none"
             type="text"
             placeholder="Type your message..."
           />
           <button
-            class="flex-shrink-0 px-4 py-2 text-white bg-violet-500 rounded-full hover:bg-violet-600 focus:outline-none"
+            class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-300 dark:text-gray-800 dark:hover:bg-gray-400"
           >
-            Send
+          Send
           </button>
         </form>
       </div>
