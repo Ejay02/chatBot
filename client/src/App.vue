@@ -37,6 +37,7 @@ async function getResponse(msg) {
   resetTimeout();
 }
 
+// add timeout
 function resetTimeout() {
   clearTimeout(timeoutId);
   timeoutId = setTimeout(() => {
