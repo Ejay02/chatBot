@@ -5,12 +5,15 @@ import { ref } from "vue";
 const msgs = ref([]);
 const msgContent = ref("");
 
+let timeoutId;
+
 function sendMessage() {
   if (msgContent.value == "") return;
 
   createMsg(msgContent.value);
   getResponse(msgContent.value);
   msgContent.value = "";
+  resetTimeout();
 }
 
 function createMsg(msg) {
@@ -31,6 +34,15 @@ async function getResponse(msg) {
   const { data } = await axios.post("http://localhost:7000/chat", postData);
   const { response } = data;
   createMsg(response);
+  resetTimeout();
+}
+
+function resetTimeout() {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    msgs.value = [];
+    window.location.reload();
+  }, 5 * 60 * 1000); // 5 minutes
 }
 </script>
 
@@ -43,7 +55,10 @@ async function getResponse(msg) {
     >
       <div class="flex flex-col space-y-4" v-for="msg in msgs" :key="msg.id">
         <!-- BOT message -->
-        <div class="flex justify-end items-start p-1 m-2" v-if="msg.id % 2 == 0">
+        <div
+          class="flex justify-end items-start p-1 m-2"
+          v-if="msg.id % 2 == 0"
+        >
           <div class="ml-4">
             <div class="bg-gray-500 text-white p-4 rounded-lg max-w-xs">
               <p class="text-gray-600">{{ msg.msg }}</p>
@@ -52,7 +67,7 @@ async function getResponse(msg) {
           <div class="flex-shrink-0 p-2">
             <img
               class="w-10 h-10 rounded-full"
-              src="https://via.placeholder.com/50"
+              src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"
               alt="Avatar"
             />
           </div>
@@ -65,7 +80,7 @@ async function getResponse(msg) {
           <div class="flex-shrink-0">
             <img
               class="w-10 h-10 rounded-full"
-              src="https://plus.unsplash.com/premium_photo-1677094310956-7f88ae5f5c6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+              src="https://cdn-icons-png.flaticon.com/512/1782/1782391.png"
               alt="Avatar"
             />
             <span class="text-black font-semibold text-xs">BOT</span>
@@ -98,7 +113,7 @@ async function getResponse(msg) {
           <button
             class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-300 dark:text-gray-800 dark:hover:bg-gray-400"
           >
-          Send
+            Send
           </button>
         </form>
       </div>
